@@ -104,8 +104,8 @@ class RoundTripTestCase(unittest.TestCase):
                     " final form without writing files..."
                 )
                 continue
-            self.assertEquals(initial_import.modules[course_id][location],
-                              second_import.modules[course_id][location])
+            self.assertEquals(initial_import.modules[course_id][location]._model_data,
+                              second_import.modules[course_id][location]._model_data)
 
     def setUp(self):
         self.maxDiff = None
