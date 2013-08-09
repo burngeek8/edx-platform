@@ -103,6 +103,7 @@ urlpatterns = ('',  # nopep8
     url(r'^event$', 'contentstore.views.event', name='event'),
 
     url(r'^heartbeat$', include('heartbeat.urls')),
+    url(r'^xmodule\.json$', include('pipeline_js.urls')),
 )
 
 # User creation and updating views
