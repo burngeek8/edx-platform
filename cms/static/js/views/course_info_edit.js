@@ -1,3 +1,10 @@
+define(["jquery", "backbone", "underscore", "codemirror", "js/views/feedback_notification"],
+    function($, Backbone, _, CodeMirror, NotificationView) {
+// this file should be refactored so that it returns a single object, rather than
+// attaching several views to the `window` object.
+window.CMS = window.CMS || {};
+window.CMS.Views = window.CMS.Views || {};
+
 /*  this view should own everything on the page which has controls effecting its operation
    generate other views for the individual editors.
    The render here adds views for each update/handout by delegating to their collections but does not
@@ -97,7 +104,7 @@ CMS.Views.ClassInfoUpdateView = Backbone.View.extend({
         var targetModel = this.eventModel(event);
         targetModel.set({ date : this.dateEntry(event).val(), content : this.$codeMirror.getValue() });
         // push change to display, hide the editor, submit the change
-        var saving = new CMS.Views.Notification.Mini({
+        var saving = new NotificationView.Mini({
             title: gettext('Saving') + '&hellip;'
         });
         saving.show();
@@ -311,7 +318,7 @@ CMS.Views.ClassInfoHandoutsView = Backbone.View.extend({
     onSave: function(event) {
         this.model.set('data', this.$codeMirror.getValue());
         this.render();
-        var saving = new CMS.Views.Notification.Mini({
+        var saving = new NotificationView.Mini({
             title: gettext('Saving') + '&hellip;'
         });
         saving.show();
@@ -342,3 +349,5 @@ CMS.Views.ClassInfoHandoutsView = Backbone.View.extend({
         this.$codeMirror = null;
     }
 });
+
+}); // end define()

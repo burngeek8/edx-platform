@@ -1,4 +1,10 @@
-if (!CMS.Models['Settings']) CMS.Models.Settings = new Object();
+define(["jquery", "backbone", "underscore", "js/models/location"],
+    function($, Backbone, _, Location) {
+// this file should be refactored so that it returns a single object, rather than
+// attaching several models to the `window` object.
+window.CMS = window.CMS || {};
+CMS.Models = CMS.Models || {};
+CMS.Models.Settings = CMS.Models.Settings || {};
 
 CMS.Models.Settings.CourseGradingPolicy = Backbone.Model.extend({
     defaults : {
@@ -9,7 +15,7 @@ CMS.Models.Settings.CourseGradingPolicy = Backbone.Model.extend({
     },
     parse: function(attributes) {
         if (attributes['course_location']) {
-            attributes.course_location = new CMS.Models.Location(attributes.course_location, {parse:true});
+            attributes.course_location = new Location(attributes.course_location, {parse:true});
         }
         if (attributes['graders']) {
             var graderCollection;
@@ -129,3 +135,5 @@ CMS.Models.Settings.CourseGraderCollection = Backbone.Collection.extend({
         return this.reduce(function(subtotal, grader) { return subtotal + grader.get('weight'); }, 0);
     }
 });
+
+}); // end define()
